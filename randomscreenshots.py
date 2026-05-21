@@ -8,6 +8,7 @@
 import time
 import random
 import os
+import sys
 from datetime import datetime
 from PIL import ImageGrab
 
@@ -16,7 +17,16 @@ from PIL import ImageGrab
 # Configuration
 NUM_SCREENSHOTS = 5                # 30 
 DURATION_SECONDS = 300             # 2 * 60 * 60  # 2 hours
-OUTPUT_DIR = "screenshots"
+
+# Find the directory containing this script/executable
+if getattr(sys, 'frozen', False):
+    # Running as a PyInstaller bundle
+    base_dir = os.path.dirname(sys.executable)
+else:
+    # Running as a regular .py script
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+OUTPUT_DIR = os.path.join(base_dir, "screenshots")
 
 # Create output folder
 os.makedirs(OUTPUT_DIR, exist_ok=True)
